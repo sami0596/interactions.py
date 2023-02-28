@@ -530,6 +530,7 @@ class MessageReactionAdd(BaseEvent):
     reaction: Optional["Reaction"] = attrs.field(
         repr=False, default=None, metadata=docs("The reaction object corresponding to the emoji")
     )
+    burst: bool = attrs.field(default=False, metadata=docs("Whether this was a super (burst) reaction"))
 
     @property
     def reaction_count(self) -> int:
@@ -552,6 +553,8 @@ class MessageReactionRemoveAll(GuildEvent):
         repr=False,
     )
     """The message that was reacted to"""
+    burst: bool = attrs.field(default=False)
+    """Whether super(burst) reactions were removed"""  # todo: waiting on discord to confirm
 
 
 @attrs.define(eq=False, order=False, hash=False, kw_only=False)
